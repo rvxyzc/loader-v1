@@ -1,4 +1,4 @@
--- UI_Library.lua
+-- UI Library
 local UI_Library = {}
 UI_Library.windowCount = 0
 UI_Library.flags = {}
@@ -432,5 +432,34 @@ function UI_Library:Window(title)
 
     return elements
 end
+
+-- Example Usage
+local exampleWindow = UI_Library:Window("Example Window")
+
+exampleWindow:Button("Print Hi", function()
+    print("Hi")
+end)
+
+exampleWindow:Slider("WalkSpeed", "WS", 16, 300, function(value)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+end)
+
+exampleWindow:Slider("JumpPower", "JP", 50, 300, function(value)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = value
+end, 100)
+
+exampleWindow:Toggle("Freeze", "frz", false, function(toggled)
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = toggled
+end)
+
+exampleWindow:Button("Destroy GUI", function()
+    for _, v in pairs(game.CoreGui:GetChildren()) do
+        if v:FindFirstChild("Top") then
+            v:Destroy()
+        end
+    end
+end)
+
+exampleWindow:Label("Example Label")
 
 return UI_Library
